@@ -1,0 +1,18 @@
+**/target/**
+.project
+.classpath
+.settings/
+.svn/
+# Intellij
+*.ipr
+*.iml
+.idea
+.DS_Store
+/bootstrap
+/dependencies.xml
+.java-version
+.checkstyle
+.factorypath
+.vscode/
+repo/
+/*.svg
