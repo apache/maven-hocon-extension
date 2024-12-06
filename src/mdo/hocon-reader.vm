@@ -51,6 +51,8 @@ import org.apache.maven.api.annotations.Generated;
 #foreach ( $class in $model.allClasses )
 import ${packageModelV4}.${class.name};
 #end
+import org.apache.maven.api.xml.XmlNode;
+import org.apache.maven.internal.xml.XmlNodeImpl;
 import com.typesafe.config.ConfigList;
 import com.typesafe.config.ConfigObject;
 import com.typesafe.config.ConfigValue;
@@ -73,6 +75,25 @@ public class ${className} {
             ${classUcapName}.Builder ${classLcapName} = ${classUcapName}.newBuilder(true);
             ((ConfigObject) value).forEach((k, v) -> {
                 switch (k) {
+  #if($class.name=="Plugin")
+                    case "gav": {
+                        String[] tokens = getStringValue(v).split(":");
+                        if (tokens.length < 1 || tokens.length > 3) {
+                            throw new RuntimeException("Invalid artifact, you must specify "
+                                    + "groupId:artifactId[:version] " + value);
+                        }
+                        if (tokens.length == 1) {
+                            ${classLcapName}.artifactId(tokens[0]);
+                        } else {
+                            ${classLcapName}.groupId(tokens[0]);
+                            ${classLcapName}.artifactId(tokens[1]);
+                            if (tokens.length >= 3) {
+                                ${classLcapName}.version(tokens[2]);
+                            }
+                        }
+                        break;
+                    }
+  #end
   #foreach ( $field in $allFields )
     #if ( ! $Helper.xmlFieldMetadata( $field ).transient && $field.name != "root" )
       #set ( $fieldTagName = $Helper.xmlFieldMetadata( $field ).tagName )
@@ -94,7 +115,7 @@ public class ${className} {
                         ${classLcapName}.${field.name}(getIntegerValue(v));
                         break;
       #elseif ( $field.type == "DOM" )
-//                        ${classLcapName}.${field.name}(XmlNodeBuilder.build(parser, true));
+                        ${classLcapName}.${field.name}(parseXmlNode(k, v));
                         break;
       #elseif ( $field.type == "java.util.List" && $field.to == "String" && $field.multiplicity == "*" )
                         ${classLcapName}.${field.name}(getStringList(v));
@@ -130,25 +151,49 @@ public class ${className} {
     #end
   #end
             return ${classLcapName}.build();
-  #if($class.name=="Dependency")
+  #if($class.name=="Parent")
+        } else if (value != null && value.valueType() == ConfigValueType.STRING) {
+            Parent.Builder parent = Parent.newBuilder(true);
+            String[] tokens = getStringValue(value).split(":");
+            if (tokens.length < 1 || tokens.length > 3) {
+                throw new RuntimeException("Invalid artifact, you must specify "
+                        + "groupId:artifactId[:version] " + value);
+            }
+            if (tokens.length == 1) {
+                parent.artifactId(tokens[0]);
+            } else {
+                parent.groupId(tokens[0]);
+                parent.artifactId(tokens[1]);
+                if (tokens.length >= 3) {
+                    parent.version(tokens[2]);
+                }
+            }
+            return parent.build();
+  #elseif($class.name=="Dependency")
         } else if (value != null && value.valueType() == ConfigValueType.STRING) {
             Dependency.Builder dependency = Dependency.newBuilder(true);
-            String[] tokens = ((String) value.unwrapped()).split(":");
-            if (tokens.length < 3 || tokens.length > 5) {
+            String[] tokens = getStringValue(value).split(":");
+            if (tokens.length < 1 || tokens.length > 5) {
                 throw new RuntimeException("Invalid artifact, you must specify "
-                        + "groupId:artifactId:version[:packaging[:classifier]] " + value);
+                        + "groupId:artifactId[:version[:packaging[:classifier]]] " + value);
             }
-            dependency.groupId(tokens[0]);
-            dependency.artifactId(tokens[1]);
-            dependency.version(tokens[2]);
-            if (tokens.length >= 4) {
-                dependency.type(tokens[3]);
-            }
-            if (tokens.length == 5) {
-                dependency.classifier(tokens[4]);
+            if (tokens.length == 1) {
+                dependency.artifactId(tokens[0]);
+            } else {
+                dependency.groupId(tokens[0]);
+                dependency.artifactId(tokens[1]);
+                if (tokens.length >= 3) {
+                    dependency.version(tokens[2]);
+                }
+                if (tokens.length >= 4) {
+                    dependency.type(tokens[3]);
+                }
+                if (tokens.length == 5) {
+                    dependency.classifier(tokens[4]);
+                }
             }
             return dependency.build();
-    #end
+  #end
         } else if (value != null) {
             throw new IllegalArgumentException("Invalid syntax: cannot parse: " + value);
         }
@@ -157,6 +202,16 @@ public class ${className} {
 
  #end
 #end
+
+    protected XmlNode parseXmlNode(String name, ConfigValue value) {
+        if (value instanceof ConfigObject obj) {
+            List<XmlNode> children = obj.entrySet().stream().map(e -> parseXmlNode(e.getKey(), e.getValue())).toList();
+            return new XmlNodeImpl(name, null, null, children, null);
+        } else if (value != null) {
+            return new XmlNodeImpl(name, getStringValue(value));
+        }
+        return null;
+    }
 
     protected String getStringValue(ConfigValue v) {
         return v.unwrapped().toString();
@@ -171,11 +226,11 @@ public class ${className} {
     }
 
     protected boolean getBooleanValue(ConfigValue v) {
-        return Boolean.parseBoolean(v.unwrapped().toString());
+        return Boolean.parseBoolean(getStringValue(v));
     }
 
     protected int getIntegerValue(ConfigValue v) {
-        return Integer.parseInt(v.unwrapped().toString());
+        return Integer.parseInt(getStringValue(v));
     }
 
     protected ConfigList getList(ConfigValue v) {
