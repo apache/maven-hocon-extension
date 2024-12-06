@@ -36,6 +36,12 @@ under the License.
     <maven.version>4.0.0-rc-1</maven.version>
     <junit.version>5.11.3</junit.version>
     <hocon.version>1.4.3</hocon.version>
+
+    <versions.junit5>5.11.3</versions.junit5>
+    <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
+    <version.maven-dependency-plugin>3.8.1</version.maven-dependency-plugin>
+    <version.maven-enforcer-plugin>3.5.0</version.maven-enforcer-plugin>
+    <version.maven-invoker-plugin>3.9.0</version.maven-invoker-plugin>
   </properties>
 
   <dependencies>
@@ -59,7 +65,25 @@ under the License.
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
-      <artifactId>maven-impl</artifactId>
+      <artifactId>maven-api-xml</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-api-model</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-api-meta</artifactId>
+      <version>${maven.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-xml</artifactId>
       <version>${maven.version}</version>
     </dependency>
     <dependency>
@@ -70,8 +94,7 @@ under the License.
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${junit.version}</version>
+      <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -81,8 +104,6 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.5.0</version>
-        <!-- Use the latest version of the plugin -->
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -104,7 +125,6 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.8.1</version>
         <executions>
           <execution>
             <id>copy-mdo</id>
@@ -123,7 +143,6 @@ under the License.
       <plugin>
         <groupId>org.codehaus.modello</groupId>
         <artifactId>modello-maven-plugin</artifactId>
-        <version>2.4.0</version>
         <executions>
           <execution>
             <id>generate-hocon-reader</id>
@@ -149,7 +168,6 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
         <configuration>
           <release>${javaVersion}</release>
           <proc>full</proc>
@@ -167,7 +185,7 @@ under the License.
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-invoker-plugin</artifactId>
-              <version>3.9.0</version>
+              <version>${version.maven-invoker-plugin}</version>
               <configuration>
                 <showErrors>true</showErrors>
                 <cloneProjectsTo>${project.build.directory}/its</cloneProjectsTo>
