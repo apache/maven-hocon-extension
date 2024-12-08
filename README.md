@@ -26,7 +26,7 @@ syntax, which is a superset of the [JSON](https://json.org/) syntax.
 
 License
 -------
-This code is under the [Apache License, Version 2.0, January 2004][license].
+This code is under the [Apache License, Version 2.0, January 2004][./LICENSE].
 
 See the [`NOTICE`](./NOTICE) file for required notices and attributions.
 
