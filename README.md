@@ -14,6 +14,19 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
+⚠️ **WARNING** ⚠️
+================
+This extension has several significant limitations:
+- No location tracking support, making error messages less helpful
+- Uses an unmaintained library as its core dependency
+
+**Consider using [Mason](https://github.com/maveniverse/mason) instead, which provides a more robust and maintained alternative.**
+
+📢 **ARCHIVED REPOSITORY** 📢
+==========================
+This repository has been archived and is no longer maintained. Please use [Mason](https://github.com/maveniverse/mason) instead.
+
 [Apache Maven Hocon Extension](https://maven.apache.org/extensions/maven-xinclude-extension/)
 ==================================
 
