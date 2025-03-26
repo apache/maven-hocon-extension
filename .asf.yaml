@@ -1,6 +1,7 @@
 github:
   features:
-    issues: true
+    issues: false  # disable issues since it's archived
+  archived: true   # mark as archived
 
 notifications:
   commits: commits@maven.apache.org
