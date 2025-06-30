@@ -41,7 +41,7 @@ under the License.
     <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
     <version.maven-dependency-plugin>3.8.1</version.maven-dependency-plugin>
     <version.maven-enforcer-plugin>3.5.0</version.maven-enforcer-plugin>
-    <version.maven-invoker-plugin>3.9.0</version.maven-invoker-plugin>
+    <version.maven-invoker-plugin>3.9.1</version.maven-invoker-plugin>
   </properties>
 
   <dependencies>
