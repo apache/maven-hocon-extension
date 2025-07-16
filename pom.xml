@@ -35,7 +35,7 @@ under the License.
     <javaVersion>17</javaVersion>
     <maven.version>4.0.0-rc-1</maven.version>
     <junit.version>5.11.3</junit.version>
-    <hocon.version>1.4.3</hocon.version>
+    <hocon.version>1.4.4</hocon.version>
 
     <versions.junit5>5.11.3</versions.junit5>
     <version.maven-compiler-plugin>3.13.0</version.maven-compiler-plugin>
