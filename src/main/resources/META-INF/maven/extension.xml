@@ -22,6 +22,5 @@ under the License.
 <extension>
     <exportedPackages>
         <exportedPackage>org.apache.maven.hocon</exportedPackage>
-        <exportedPackage>META-INF.maven</exportedPackage>
     </exportedPackages>
 </extension>
