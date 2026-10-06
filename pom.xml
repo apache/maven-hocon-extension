@@ -33,7 +33,7 @@ under the License.
 
   <properties>
     <javaVersion>17</javaVersion>
-    <maven.version>4.0.0-rc-1</maven.version>
+    <maven.version>4.0.0-rc-7</maven.version>
     <junit.version>5.11.3</junit.version>
     <hocon.version>1.4.3</hocon.version>
 
@@ -77,7 +77,7 @@ under the License.
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
-      <artifactId>maven-api-meta</artifactId>
+      <artifactId>maven-api-annotations</artifactId>
       <version>${maven.version}</version>
       <scope>provided</scope>
     </dependency>

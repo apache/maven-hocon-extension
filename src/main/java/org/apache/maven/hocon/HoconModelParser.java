@@ -33,6 +33,7 @@ import org.apache.maven.api.di.Named;
 import org.apache.maven.api.di.Priority;
 import org.apache.maven.api.model.Model;
 import org.apache.maven.api.services.Source;
+import org.apache.maven.api.services.Sources;
 import org.apache.maven.api.spi.ModelParser;
 import org.apache.maven.api.spi.ModelParserException;
 
@@ -43,7 +44,7 @@ public class HoconModelParser implements ModelParser {
     @Override
     public Optional<Source> locate(Path path) {
         Path pom = Files.isDirectory(path) ? path.resolve("pom.hocon") : path;
-        return Files.isRegularFile(pom) ? Optional.of(Source.fromPath(pom)) : Optional.empty();
+        return Files.isRegularFile(pom) ? Optional.of(Sources.fromPath(pom)) : Optional.empty();
     }
 
     @Override
