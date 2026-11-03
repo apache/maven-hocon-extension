@@ -37,7 +37,9 @@ under the License.
     <junit.version>5.11.3</junit.version>
     <hocon.version>1.4.3</hocon.version>
 
-    <versions.junit5>5.11.3</versions.junit5>
+    <versions.junit>5.11.3</versions.junit>
+    <!-- the name maven-parent 50 and older read; remove with the parent update -->
+    <versions.junit5>${versions.junit}</versions.junit5>
   </properties>
 
   <dependencies>
