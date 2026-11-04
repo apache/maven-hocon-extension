@@ -15,63 +15,17 @@
  limitations under the License.
 -->
 
-⚠️ **WARNING** ⚠️
-================
-This extension has several significant limitations:
-- No location tracking support, making error messages less helpful
-- Uses an unmaintained library as its core dependency
-
-**Consider using [Mason](https://github.com/maveniverse/mason) instead, which provides a more robust and maintained alternative.**
-
-📢 **ARCHIVED REPOSITORY** 📢
-==========================
-This repository has been archived and is no longer maintained. Please use [Mason](https://github.com/maveniverse/mason) instead.
-
-[Apache Maven Hocon Extension](https://maven.apache.org/extensions/maven-xinclude-extension/)
-==================================
+Apache Maven Hocon Extension (RETIRED)
+======================================
 
 [![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven.extensions/maven-xinclude-extension.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.apache.maven.extensions/maven-xinclude-extension)
 
-This project provides a Hocon POM parser extension for Maven 4. It allows POMs to 
-be written with the [Hocon](https://github.com/lightbend/config/blob/master/HOCON.md)
-syntax, which is a superset of the [JSON](https://json.org/) syntax.
+This extension let Maven 4 read POMs written in
+[HOCON](https://github.com/lightbend/config/blob/master/HOCON.md) syntax.
 
-License
--------
-This code is under the [Apache License, Version 2.0, January 2004][./LICENSE].
+It is retired and was never released. [Mason](https://github.com/maveniverse/mason)
+replaces it: Mason reads HOCON, YAML, JSON and TOML POMs and tracks source locations.
+The decision is in the
+[dev@maven.apache.org thread](https://lists.apache.org/thread/rp5l0tt4lxpwj5wxnj8r5ckwcq6hxd89).
 
-See the [`NOTICE`](./NOTICE) file for required notices and attributions.
-
-Usage
------
-To use this extension, the following declaration needs to be done in your `${rootDirectory}/.mvn/extensions.xml`:
-```
-<extensions xmlns="http://maven.apache.org/EXTENSIONS/1.2.0">
-    <extension>
-        <groupId>org.apache.maven.extensions</groupId>
-        <artifactId>maven-hocon-extension</artifactId>
-        <version>@project.version@</version>
-    </extension>
-</extensions>
-```
-This allows defining a POM using Hocon syntax:
-```
-modelVersion = 4.1.0
-parent {
-    groupId = org.apache.maven.hocon.its
-    artifactId = parent
-    version = 1.0.0-SNAPSHOT
-}
-artifactId = test
-
-properties = {
-  "my.property" = foo
-  pluginVersion = 3.9
-}
-
-dependencies = [
-    # just add one dummy dependency
-    "com.typesafe:config:1.4.2"
-]
-```
+For questions, use the [Maven mailing lists](https://maven.apache.org/mailing-lists.html).

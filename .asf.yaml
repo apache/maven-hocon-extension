@@ -1,4 +1,5 @@
 github:
+  description: "Apache Maven Hocon Extension (RETIRED)"
   features:
     issues: false
 
