@@ -1,7 +1,6 @@
 github:
   features:
-    issues: false  # disable issues since it's archived
-  archived: true   # mark as archived
+    issues: false
 
   rulesets:
     - name: "Default Branch Protection"
